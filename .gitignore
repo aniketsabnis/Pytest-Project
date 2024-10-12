@@ -1,0 +1,48 @@
+# Virtual environment
+venv/
+pytestvenv/
+.env
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+
+# Testing
+*.log
+*.pot
+*.py[cod]
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.pytest_cache/
+test-results/
+reports/*
+logs/*
+
+# IDE / Editor specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Other common files to ignore
+*.DS_Store
+*.egg
+*.egg-info
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
