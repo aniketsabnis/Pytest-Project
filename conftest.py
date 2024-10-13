@@ -85,12 +85,27 @@ def pytest_bdd_before_step(request, feature, scenario, step, step_func):
     if step.params:
         print(f" - Parameters: {step.params}")
 
-@pytest.hookimpl(trylast=True)
+@pytest.hookimpl(tryfirst=True)
 def pytest_bdd_after_step(request, feature, scenario, step, step_func, step_func_args):
     """Hook to execute after each step."""
-    print(f"\n[After Step] Finished step: {step.keyword} {step.name}")
+    # Print step details
+    print(f"\n[After Step] Finished step:")
+    print(f" - Keyword: {step.keyword}")
+    print(f" - Name: {step.name}")
+    print(f" - Line Number: {step.line_number}")
+    print(f" - Step Type: {step.type}")
+    if step.params:
+        print(f" - Parameters: {step.params}")
+    
+    # Print result of step
+    if step_func_args is not None:
+        if step_func_args.get('exception') is None:
+            print(f" - Step Status: PASSED")
+        else:
+            print(f" - Step Status: FAILED")
+            print(f" - Error: {step_func_args.get('exception')}")
 
-
+# To remove any files
 # def pytest_sessionfinish(session, exitstatus):
 #     try:
 #         os.remove('test_log.log')  # Adjust the name if needed
