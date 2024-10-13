@@ -63,6 +63,34 @@ def logger():
     """Fixture that provides a singleton logger instance."""
     return get_logger()
 
+# Hook to execute before each test
+@pytest.hookimpl(tryfirst=True)
+def pytest_runtest_setup(item):
+    print(f"\n[Before Test] Starting test: {item.name}")
+
+# Hook to execute after each test
+@pytest.hookimpl(trylast=True)
+def pytest_runtest_teardown(item):
+    print(f"\n[After Test] Finished test: {item.name}")
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_bdd_before_step(request, feature, scenario, step, step_func):
+    """Hook to execute before each step."""
+    # Print step details
+    print(f"\n[Before Step] Starting step:")
+    print(f" - Keyword: {step.keyword}")
+    print(f" - Name: {step.name}")
+    print(f" - Line Number: {step.line_number}")
+    print(f" - Step Type: {step.type}")
+    if step.params:
+        print(f" - Parameters: {step.params}")
+
+@pytest.hookimpl(trylast=True)
+def pytest_bdd_after_step(request, feature, scenario, step, step_func, step_func_args):
+    """Hook to execute after each step."""
+    print(f"\n[After Step] Finished step: {step.keyword} {step.name}")
+
+
 # def pytest_sessionfinish(session, exitstatus):
 #     try:
 #         os.remove('test_log.log')  # Adjust the name if needed
